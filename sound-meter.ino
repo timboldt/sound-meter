@@ -31,9 +31,8 @@ void loop()
             {
                 const uint16_t range = 30000;
                 const uint16_t offset = 25000;
-
-                uint16_t v = offset - (uint16_t)(min(val[row], col + 1) * range / 8);
-                uint32_t hsv = neo_featherwing.ColorHSV(v, 255, 4);
+                const uint16_t hue = offset - (uint16_t)(min(val[row], col + 1) * range / 8);
+                const uint32_t hsv = neo_featherwing.ColorHSV(hue, 255, 4);
                 neo_featherwing.setPixelColor(row * 8 + col, hsv);
             }
         }
