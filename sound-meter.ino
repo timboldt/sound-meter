@@ -28,18 +28,17 @@ void setup() {
 }
 
 void loop() {
-    static uint16_t on_cnt = 0;
+    static float noise = 0;
     if (digitalRead(MIC_PIN)) {
-        on_cnt = min(on_cnt + 1, 8);
+        noise = noise * 0.5;
     } else {
-        on_cnt = max(on_cnt - 1, 0);
+        noise = 1.0;
     }
-    Serial.println(on_cnt);
 
     const float alpha = 0.9;
     const float beta = 1.0 - alpha;
     static float val[4] = {0, 0, 0, 0};
-    val[0] = min(8, max(0, on_cnt));
+    val[0] = min(8, max(0, noise * 8));
     val[1] = alpha * val[1] + beta * val[0];
     val[2] = alpha * val[2] + beta * val[1];
     val[3] = alpha * val[3] + beta * val[2];
