@@ -32,13 +32,13 @@ void loop() {
     if (digitalRead(MIC_PIN)) {
         noise = noise * 0.5;
     } else {
-        noise = 1.0;
+        noise = 8.0;
     }
 
-    const float alpha = 0.9;
+    const float alpha = 0.5;
     const float beta = 1.0 - alpha;
     static float val[4] = {0, 0, 0, 0};
-    val[0] = min(8, max(0, noise * 8));
+    val[0] = noise;
     val[1] = alpha * val[1] + beta * val[0];
     val[2] = alpha * val[2] + beta * val[1];
     val[3] = alpha * val[3] + beta * val[2];
